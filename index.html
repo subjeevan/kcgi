@@ -3,53 +3,79 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Talking Map</title>
+    <title>KCGI Talking Map Guide</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body style="text-align:center;font-family:Arial;background:#f7f7f7;padding:20px;">
 
-    <h2 id="title">Tap to hear directions</h2>
-    <button id="playBtn" style="font-size:20px;padding:15px;">
-        ▶ Play Voice & Open Map
+    <h2 id="title">KCGI Location Guide</h2>
+
+    <!-- MAP PREVIEW IMAGE -->
+    <img id="mapImg" src="" alt="Map Preview"
+        style="width:100%;max-width:360px;border-radius:12px;margin:20px 0;box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+
+    <!-- ACTION BUTTON -->
+    <button id="playBtn" style="font-size:18px;padding:15px 25px;border:none;
+                 border-radius:10px;background:#007bff;color:white;">
+        ▶ Tap to Hear Directions & Open Map
     </button>
 
     <script>
+        /* -------------------------------
+           LOCATION CONFIGURATION
+        --------------------------------*/
         const locations = {
             ekimae: {
-                text: "KCGI Student will first visit Ekimae campus after landing to Japan Student will first visit Ekimae campus and Sign documents and collect Room Keys",
-                map: "https://maps.app.goo.gl/kXQRCce1vFx5fcCdA"
+                title: "Ekimae Campus",
+                text: "KCGI students should first visit the Ekimae Campus after arriving in Japan. Here, students will sign documents and collect their room keys.",
+                map: "https://maps.app.goo.gl/y84WBmrHCFWdzLmp6",
+                image: "ekimae.jpg"
             },
             hblock: {
-                text: "This is H Block. Students will create their Student ID Card, register for classes, Sign Scholorship documents and attend the Classes from here.",
-                map: "https://maps.app.goo.gl/PUT_BLOCK_A_LINK"
+                title: "H Block",
+                text: "This is H Block. Students will create their student ID cards, register for classes, sign scholarship documents, and attend classes here.",
+                map: "https://maps.app.goo.gl/znB6JieBGnAzGeuC7",
+                image: "hblock.jpg"
             },
             mblock: {
-                text: "This is M Block. Students will attend classes from here too.",
-                map: "https://maps.app.goo.gl/PUT_BLOCK_B_LINK"
+                title: "M Block",
+                text: "This is M Block. Students will also attend classes at this location.",
+                map: "https://maps.app.goo.gl/mFVoMWE2CukUkh526",
+                image: "mblock.jpg"
             }
         };
 
-        // Read URL parameter
+        /* -------------------------------
+           READ URL PARAMETER
+        --------------------------------*/
         const params = new URLSearchParams(window.location.search);
-        const id = params.get("id") || "gate";
+        const id = params.get("id") || "ekimae";
         const loc = locations[id];
 
-        // Safety check
+        /* -------------------------------
+           PAGE SETUP
+        --------------------------------*/
         if (!loc) {
-            document.getElementById("title").innerText = "Invalid location";
+            document.getElementById("title").innerText = "Invalid Location";
             document.getElementById("playBtn").style.display = "none";
+        } else {
+            document.getElementById("title").innerText = loc.title;
+            document.getElementById("mapImg").src = loc.image;
         }
 
-        // Button action
+        /* -------------------------------
+           BUTTON ACTION (REQUIRED FOR SOUND)
+        --------------------------------*/
         document.getElementById("playBtn").onclick = () => {
             const speech = new SpeechSynthesisUtterance(loc.text);
             speech.lang = "en-US";
-            speechSynthesis.speak(speech);
+            speech.rate = 0.95;
+            window.speechSynthesis.speak(speech);
 
             setTimeout(() => {
                 window.location.href = loc.map;
-            }, 3000);
+            }, 3500);
         };
     </script>
 
