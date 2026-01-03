@@ -4,40 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Talking Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-    <h3>Opening Google Maps…</h3>
+
+    <h2 id="title">Tap to hear directions</h2>
+    <button id="playBtn" style="font-size:20px;padding:15px;">
+        ▶ Play Voice & Open Map
+    </button>
 
     <script>
-        const data = {
-            gate: {
-                text: "Welcome. This is the main KCGI Campus. Google Maps will open now.",
-                map: "https://maps.app.goo.gl/v32hDHuLgjoxo4MMA"
+        const locations = {
+            ekimae: {
+                text: "KCGI Student will first visit Ekimae campus after landing to Japan Student will first visit Ekimae campus and Sign documents and collect Room Keys",
+                map: "https://maps.app.goo.gl/kXQRCce1vFx5fcCdA"
             },
-            blockA: {
-                text: "Welcome. This is Block A building.",
-                map: "https://maps.app.goo.gl/v32hDHuLgjoxo4MMA"
+            hblock: {
+                text: "This is H Block. Students will create their Student ID Card, register for classes, Sign Scholorship documents and attend the Classes from here.",
+                map: "https://maps.app.goo.gl/PUT_BLOCK_A_LINK"
             },
-            blockB: {
-                text: "You have reached Block B. Thank you.",
-                map: "https://maps.app.goo.gl/v32hDHuLgjoxo4MMA"
+            mblock: {
+                text: "This is M Block. Students will attend classes from here too.",
+                map: "https://maps.app.goo.gl/PUT_BLOCK_B_LINK"
             }
         };
 
-        // Get parameter
+        // Read URL parameter
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id") || "gate";
+        const loc = locations[id];
 
-        // Speak
-        const speech = new SpeechSynthesisUtterance(data[id].text);
-        speech.lang = "en-US";
-        speechSynthesis.speak(speech);
+        // Safety check
+        if (!loc) {
+            document.getElementById("title").innerText = "Invalid location";
+            document.getElementById("playBtn").style.display = "none";
+        }
 
-        // Open map
-        setTimeout(() => {
-            window.location.href = data[id].map;
-        }, 3000);
+        // Button action
+        document.getElementById("playBtn").onclick = () => {
+            const speech = new SpeechSynthesisUtterance(loc.text);
+            speech.lang = "en-US";
+            speechSynthesis.speak(speech);
+
+            setTimeout(() => {
+                window.location.href = loc.map;
+            }, 3000);
+        };
     </script>
 
 </body>
