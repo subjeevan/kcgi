@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Talking Map</title>
+</head>
+
+<body>
+    <h3>Opening Google Maps…</h3>
+
+    <script>
+        const data = {
+            gate: {
+                text: "Welcome. This is the main gate. Google Maps will open now.",
+                map: "https://maps.app.goo.gl/XXXXX1"
+            },
+            blockA: {
+                text: "Welcome. This is Block A building.",
+                map: "https://maps.app.goo.gl/XXXXX2"
+            },
+            blockB: {
+                text: "You have reached Block B. Thank you.",
+                map: "https://maps.app.goo.gl/XXXXX3"
+            }
+        };
+
+        // Get parameter
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id") || "gate";
+
+        // Speak
+        const speech = new SpeechSynthesisUtterance(data[id].text);
+        speech.lang = "en-US";
+        speechSynthesis.speak(speech);
+
+        // Open map
+        setTimeout(() => {
+            window.location.href = data[id].map;
+        }, 3000);
+    </script>
+
+</body>
+
+</html>
