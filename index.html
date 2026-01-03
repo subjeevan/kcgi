@@ -12,15 +12,21 @@
     <h2 id="title">KCGI Map Guide</h2>
 
     <!-- MAP PREVIEW IMAGE -->
-    <img id="mapImg" src="" alt="Map Preview"
-        style="width:100%;max-width:720px;border-radius:12px;margin:20px 0;box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+    <img id="mapImg" src="" alt="Map Preview" style="width:100%;max-width:720px;border-radius:12px;
+              margin:20px 0;box-shadow:0 4px 10px rgba(0,0,0,0.2);">
 
-    <!-- ACTION BUTTON -->
-    <br>
-    <button id="playBtn" style="font-size:18px;padding:15px 25px;border:none;
-                 border-radius:10px;background:#007bff;color:white;">
-        ▶ Tap to Hear about Building & Open Map
-    </button>
+    <!-- ACTION BUTTONS -->
+    <div style="margin-top:20px;">
+        <button id="playInfoBtn" style="font-size:18px;padding:15px 25px;border:none;
+                   border-radius:10px;background:#28a745;color:white;margin-right:10px;">
+            🔊 Play Building Info
+        </button>
+
+        <button id="openMapBtn" style="font-size:18px;padding:15px 25px;border:none;
+                   border-radius:10px;background:#007bff;color:white;">
+            🗺️ Open in Google Maps
+        </button>
+    </div>
 
     <script>
         /* -------------------------------
@@ -59,24 +65,30 @@
         --------------------------------*/
         if (!loc) {
             document.getElementById("title").innerText = "Invalid Location";
-            document.getElementById("playBtn").style.display = "none";
+            document.getElementById("playInfoBtn").style.display = "none";
+            document.getElementById("openMapBtn").style.display = "none";
         } else {
             document.getElementById("title").innerText = loc.title;
             document.getElementById("mapImg").src = loc.image;
         }
 
         /* -------------------------------
-           BUTTON ACTION (REQUIRED FOR SOUND)
+           BUTTON LOGIC
         --------------------------------*/
-        document.getElementById("playBtn").onclick = () => {
+
+        // Play info button
+        document.getElementById("playInfoBtn").onclick = () => {
             const speech = new SpeechSynthesisUtterance(loc.text);
             speech.lang = "en-US";
             speech.rate = 0.95;
-            window.speechSynthesis.speak(speech);
 
-            setTimeout(() => {
-                window.location.href = loc.map;
-            }, 3500);
+            window.speechSynthesis.cancel(); // stop any previous speech
+            window.speechSynthesis.speak(speech);
+        };
+
+        // Open map button
+        document.getElementById("openMapBtn").onclick = () => {
+            window.location.href = loc.map;
         };
     </script>
 
