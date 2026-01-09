@@ -3,93 +3,333 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>KCGI Map Guide</title>
+    <title>KCGI Student Support Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 
-<body style="text-align:center;font-family:Arial;background:#f7f7f7;padding:20px;">
-
-    <h2 id="title">KCGI Map Guide</h2>
-
-    <!-- MAP PREVIEW IMAGE -->
-    <img id="mapImg" src="" alt="Map Preview" style="width:100%;max-width:720px;border-radius:12px;
-              margin:20px 0;box-shadow:0 4px 10px rgba(0,0,0,0.2);">
-
-    <!-- ACTION BUTTONS -->
-    <div style="margin-top:20px;">
-        <button id="playInfoBtn" style="font-size:18px;padding:15px 25px;border:none;
-                   border-radius:10px;background:#28a745;color:white;margin-right:10px;">
-            🔊 Play Building Info
-        </button>
-
-        <button id="openMapBtn" style="font-size:18px;padding:15px 25px;border:none;
-                   border-radius:10px;background:#007bff;color:white;">
-            🗺️ Open in Google Maps
-        </button>
-    </div>
-
-    <script>
-        /* -------------------------------
-           LOCATION CONFIGURATION
-        --------------------------------*/
-        const locations = {
-            ekimae: {
-                title: "KCGI Ekimae Campus",
-                text: "KCGI students should first visit the Ekimae Campus after arriving in Japan. Here, students will sign documents and collect their room keys.",
-                map: "https://maps.app.goo.gl/y84WBmrHCFWdzLmp6",
-                image: "ekimae.png"
-            },
-            hblock: {
-                title: "KCGI H Block",
-                text: "This is H Block. Students will create their student ID cards, register for classes, sign scholarship documents, and attend classes here.",
-                map: "https://maps.app.goo.gl/znB6JieBGnAzGeuC7",
-                image: "hblock.png"
-            },
-            mblock: {
-                title: "KCGI M Block",
-                text: "This is M Block. Students will also attend classes at this location.",
-                map: "https://maps.app.goo.gl/mFVoMWE2CukUkh526",
-                image: "mblock.png"
-            }
-        };
-
-        /* -------------------------------
-           READ URL PARAMETER
-        --------------------------------*/
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get("id") || "ekimae";
-        const loc = locations[id];
-
-        /* -------------------------------
-           PAGE SETUP
-        --------------------------------*/
-        if (!loc) {
-            document.getElementById("title").innerText = "Invalid Location";
-            document.getElementById("playInfoBtn").style.display = "none";
-            document.getElementById("openMapBtn").style.display = "none";
-        } else {
-            document.getElementById("title").innerText = loc.title;
-            document.getElementById("mapImg").src = loc.image;
+    <style>
+        /* =============================
+           CONFIGURATION
+        ============================= */
+        :root {
+            --logo-left-gap: 100px;
+            --primary: #0f2a44;
+            --secondary: #1f6feb;
+            --light-bg: #f3f6fa;
         }
 
-        /* -------------------------------
-           BUTTON LOGIC
-        --------------------------------*/
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--light-bg);
+            color: #1c1c1c;
+        }
 
-        // Play info button
-        document.getElementById("playInfoBtn").onclick = () => {
-            const speech = new SpeechSynthesisUtterance(loc.text);
-            speech.lang = "en-US";
-            speech.rate = 0.95;
+        /* =============================
+           HEADER
+        ============================= */
+        .kcgi-header {
+            position: relative;
+            background: linear-gradient(135deg, #0f2a44, #163b5f);
+            padding: 35px 0;
+            animation: fadeSlideDown 1s ease-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
 
-            window.speechSynthesis.cancel(); // stop any previous speech
-            window.speechSynthesis.speak(speech);
-        };
+        .kcgi-logo {
+            position: absolute;
+            left: var(--logo-left-gap);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 380px;
+            animation: zoomIn 1.2s ease-out;
+        }
 
-        // Open map button
-        document.getElementById("openMapBtn").onclick = () => {
-            window.location.href = loc.map;
-        };
+        .kcgi-title {
+            text-align: center;
+            color: white;
+        }
+
+        .kcgi-title h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .kcgi-title p {
+            margin-top: 6px;
+            color: #dce6f2;
+            font-size: 14px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #eaf1ff;
+        }
+
+        /* =============================
+           SECTIONS
+        ============================= */
+        section {
+            padding: 40px 20px;
+            animation: fadeUp 1s ease forwards;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 6px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #174ea6;
+            transform: scale(1.05);
+        }
+
+        /* =============================
+           MODAL
+        ============================= */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 90%;
+            animation: fadeUp 0.5s ease;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .close {
+            cursor: pointer;
+            text-align: right;
+            font-size: 18px;
+        }
+
+        /* =============================
+           ANIMATIONS
+        ============================= */
+        @keyframes fadeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50%) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(-50%) scale(1);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =============================
+           MOBILE
+        ============================= */
+        @media (max-width: 768px) {
+            .kcgi-logo {
+                position: static;
+                transform: none;
+                display: block;
+                margin: 0 auto 15px;
+            }
+
+            .kcgi-title {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="kcgi-header">
+        <img src="logo.svg" alt="KCGI Logo" class="kcgi-logo">
+
+        <div class="kcgi-title">
+            <h1>KCGI Student Support Portal</h1>
+            <p>Scan • Listen • Navigate • Learn</p>
+            <div class="badge">Official Academic Support System</div>
+        </div>
+    </header>
+
+    <!-- BUILDINGS -->
+    <section>
+        <h2>🏢 Campus Buildings</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>Building A</h3>
+                <p>Academic Classes</p>
+                <button onclick="speak(buildingAText)">🔊 Listen Info</button>
+                <a href="https://maps.google.com?q=KCGI+Building+A" target="_blank">
+                    <button>🗺 Open Map</button>
+                </a>
+            </div>
+
+            <div class="card">
+                <h3>Building B</h3>
+                <p>Administration</p>
+                <button onclick="speak(buildingBText)">🔊 Listen Info</button>
+                <a href="https://maps.google.com?q=KCGI+Building+B" target="_blank">
+                    <button>🗺 Open Map</button>
+                </a>
+            </div>
+
+            <div class="card">
+                <h3>Building C</h3>
+                <p>Labs & Library</p>
+                <button onclick="speak(buildingCText)">🔊 Listen Info</button>
+                <a href="https://maps.google.com?q=KCGI+Building+C" target="_blank">
+                    <button>🗺 Open Map</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMS -->
+    <section>
+        <h2>❓ Student Problems & Solutions</h2>
+
+        <div class="card-container">
+            <div class="card" onclick="openGuide('add_drop.png')">
+                <h3>Add / Drop Subjects</h3>
+                <button>View Steps</button>
+            </div>
+
+            <div class="card" onclick="openGuide('attendance.png')">
+                <h3>Check Attendance</h3>
+                <button>View Steps</button>
+            </div>
+
+            <div class="card" onclick="openGuide('assignments.png')">
+                <h3>Check Assignments</h3>
+                <button>View Steps</button>
+            </div>
+
+            <div class="card" onclick="openGuide('wifi.png')">
+                <h3>Use Campus Wi-Fi</h3>
+                <button>View Steps</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="close" onclick="closeModal()">✖</div>
+            <img id="modalImg">
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        const buildingAText = "Building A is mainly used for academic classes.";
+        const buildingBText = "Building B contains administrative offices.";
+        const buildingCText = "Building C is used for labs and library.";
+
+        function speak(text) {
+            speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = "en-US";
+            msg.rate = 0.95;
+            speechSynthesis.speak(msg);
+        }
+
+        function openGuide(img) {
+            document.getElementById("modalImg").src = img;
+            document.getElementById("modal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
     </script>
 
 </body>
