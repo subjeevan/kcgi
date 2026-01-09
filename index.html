@@ -223,6 +223,19 @@
                 text-align: center;
             }
         }
+
+        .card-map {
+            width: 100%;
+            height: 300px;
+            /* small size */
+            object-fit: contain;
+            /* FULL image visible, no stretch */
+            border-radius: 8px;
+            background: #f2f2f2;
+            /* light background looks nice */
+            padding: 1px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -244,34 +257,43 @@
         <h2>🏢 Campus Buildings</h2>
 
         <div class="card-container">
+
+            <!-- BUILDING A -->
             <div class="card">
+                <img src="ekimae.png" class="card-map" onclick="openMap('mapA.png')">
                 <h3>Building A</h3>
                 <p>Academic Classes</p>
                 <button onclick="speak(buildingAText)">🔊 Listen Info</button>
                 <a href="https://maps.google.com?q=KCGI+Building+A" target="_blank">
-                    <button>🗺 Open Map</button>
+                    <button>🗺 Open Google Map</button>
                 </a>
             </div>
 
+            <!-- BUILDING B -->
             <div class="card">
+                <img src="hblock.png" class="card-map" onclick="openMap('mapA.png')">
                 <h3>Building B</h3>
                 <p>Administration</p>
                 <button onclick="speak(buildingBText)">🔊 Listen Info</button>
                 <a href="https://maps.google.com?q=KCGI+Building+B" target="_blank">
-                    <button>🗺 Open Map</button>
+                    <button>🗺 Open Google Map</button>
                 </a>
             </div>
 
+            <!-- BUILDING C -->
             <div class="card">
+                <img src="mblock.png" class="card-map" onclick="openMap('mapA.png')">
                 <h3>Building C</h3>
                 <p>Labs & Library</p>
                 <button onclick="speak(buildingCText)">🔊 Listen Info</button>
                 <a href="https://maps.google.com?q=KCGI+Building+C" target="_blank">
-                    <button>🗺 Open Map</button>
+                    <button>🗺 Open Google Map</button>
                 </a>
             </div>
+
         </div>
     </section>
+
 
     <!-- PROBLEMS -->
     <section>
