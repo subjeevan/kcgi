@@ -106,22 +106,6 @@
             box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
         }
 
-        .card:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .card:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .card:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        .card:nth-child(4) {
-            animation-delay: 0.8s;
-        }
-
         button {
             background: var(--secondary);
             color: white;
@@ -136,6 +120,23 @@
         button:hover {
             background: #174ea6;
             transform: scale(1.05);
+        }
+
+        /* =============================
+           INNER INFO CARD (ONLY ADDITION)
+        ============================= */
+        .info-box {
+            background: #f8fbff;
+            border-left: 4px solid var(--secondary);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: left;
+            color: #1f2a44;
+            max-height: 120px;
+            overflow-y: auto;
         }
 
         /* =============================
@@ -208,31 +209,12 @@
             }
         }
 
-        /* =============================
-           MOBILE
-        ============================= */
-        @media (max-width: 768px) {
-            .kcgi-logo {
-                position: static;
-                transform: none;
-                display: block;
-                margin: 0 auto 15px;
-            }
-
-            .kcgi-title {
-                text-align: center;
-            }
-        }
-
         .card-map {
             width: 100%;
             height: 300px;
-            /* small size */
             object-fit: contain;
-            /* FULL image visible, no stretch */
             border-radius: 8px;
             background: #f2f2f2;
-            /* light background looks nice */
             padding: 1px;
             margin-bottom: 10px;
         }
@@ -244,7 +226,6 @@
     <!-- HEADER -->
     <header class="kcgi-header">
         <img src="logo.svg" alt="KCGI Logo" class="kcgi-logo">
-
         <div class="kcgi-title">
             <h1>KCGI Student Support Portal</h1>
             <p>Scan • Listen • Navigate • Learn</p>
@@ -258,35 +239,42 @@
 
         <div class="card-container">
 
-            <!-- BUILDING A -->
             <div class="card">
-                <img src="ekimae.png" class="card-map" onclick="openMap('mapA.png')">
-                <h3>Building A</h3>
-                <p>Academic Classes</p>
-                <button onclick="speak(buildingAText)">🔊 Listen Info</button>
-                <a href="https://maps.google.com?q=KCGI+Building+A" target="_blank">
+                <img src="ekimae.png" class="card-map">
+                <h3>KCGI Ekimae Campus</h3>
+                <div class="info-box" id="buildingA">
+                    KCGI Ekimae Campus is the main academic campus near Kyoto Station.
+                    Most regular classes and academic activities are conducted here.
+                </div>
+                <button onclick="speakFromBox('buildingA')">🔊 Listen Info</button>
+                <a href="https://maps.app.goo.gl/MAd9ZF9vq7L3kL4g8" target="_blank">
                     <button>🗺 Open Google Map</button>
                 </a>
             </div>
 
-            <!-- BUILDING B -->
             <div class="card">
-                <img src="hblock.png" class="card-map" onclick="openMap('mapA.png')">
-                <h3>Building B</h3>
-                <p>Administration</p>
-                <button onclick="speak(buildingBText)">🔊 Listen Info</button>
-                <a href="https://maps.google.com?q=KCGI+Building+B" target="_blank">
+                <img src="hblock.png" class="card-map">
+                <h3>KCGI Hyakumanben Campus (H Block)</h3>
+                <div class="info-box" id="buildingB">
+                    Located near Kyoto University. Printed ID cards, orientation,
+                    scholarship sessions, and official signings are conducted here.
+                    Many regular classes are also held. Check timetable for H or M block.
+                </div>
+                <button onclick="speakFromBox('buildingB')">🔊 Listen Info</button>
+                <a href="https://maps.app.goo.gl/MvAhDWuq6gdK68Vc8" target="_blank">
                     <button>🗺 Open Google Map</button>
                 </a>
             </div>
 
-            <!-- BUILDING C -->
             <div class="card">
-                <img src="mblock.png" class="card-map" onclick="openMap('mapA.png')">
-                <h3>Building C</h3>
-                <p>Labs & Library</p>
-                <button onclick="speak(buildingCText)">🔊 Listen Info</button>
-                <a href="https://maps.google.com?q=KCGI+Building+C" target="_blank">
+                <img src="mblock.png" class="card-map">
+                <h3>KCGI Hyakumanben Campus (M Block)</h3>
+                <div class="info-box" id="buildingC">
+                    Used for selected academic classes and activities.
+                    Students must verify their timetable before attending.
+                </div>
+                <button onclick="speakFromBox('buildingC')">🔊 Listen Info</button>
+                <a href="https://maps.app.goo.gl/RqeovaRUtw4VrMy29" target="_blank">
                     <button>🗺 Open Google Map</button>
                 </a>
             </div>
@@ -294,27 +282,22 @@
         </div>
     </section>
 
-
     <!-- PROBLEMS -->
     <section>
         <h2>❓ Student Problems & Solutions</h2>
-
         <div class="card-container">
             <div class="card" onclick="openGuide('add_drop.png')">
                 <h3>Add / Drop Subjects</h3>
                 <button>View Steps</button>
             </div>
-
             <div class="card" onclick="openGuide('attendance.png')">
                 <h3>Check Attendance</h3>
                 <button>View Steps</button>
             </div>
-
             <div class="card" onclick="openGuide('assignments.png')">
                 <h3>Check Assignments</h3>
                 <button>View Steps</button>
             </div>
-
             <div class="card" onclick="openGuide('wifi.png')">
                 <h3>Use Campus Wi-Fi</h3>
                 <button>View Steps</button>
@@ -332,11 +315,8 @@
 
     <!-- SCRIPT -->
     <script>
-        const buildingAText = "Building A is mainly used for academic classes.";
-        const buildingBText = "Building B contains administrative offices.";
-        const buildingCText = "Building C is used for labs and library.";
-
-        function speak(text) {
+        function speakFromBox(id) {
+            const text = document.getElementById(id).innerText;
             speechSynthesis.cancel();
             const msg = new SpeechSynthesisUtterance(text);
             msg.lang = "en-US";
