@@ -435,6 +435,31 @@
             color: #ffd966;
             margin: 0 4px;
         }
+
+        /* Add download button style */
+        .card-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+        }
     </style>
 </head>
 
@@ -454,7 +479,7 @@
             <div class="menu-item">
                 <a href="#" class="menu-link">📚 Academic Help ▾</a>
                 <div class="dropdown">
-                    <a href="#problems">Add / Drop Subjects</a>
+                    <a href="Addition_Withdraw/main.png">Add / Drop Subjects</a>
                     <a href="#problems">Attendance</a>
                     <a href="#problems">Assignments</a>
                     <a href="#problems">Wi-Fi Guide</a>
@@ -535,28 +560,37 @@
     </section>
 
     <!-- ================= PROBLEMS ================= -->
+    <!-- ================= PROBLEMS ================= -->
     <section id="problems">
         <h2>❓ Student Problems & Solutions</h2>
         <div class="card-container">
-            <div class="card" onclick="openGuide('add_drop_pre')">
-                <h3>Check Subjects Schedules</h3>
-                <button>View Steps</button>
+            <div class="card">
+                <h3>Add / Drop Subjects</h3>
+                <div class="card-buttons">
+                    <button onclick="openGuide('add_drop')">View Steps</button>
+                    <button class="download-btn" onclick="downloadGuide('add_drop')">⬇ Download</button>
+                </div>
             </div>
-            <div class="card" onclick="openGuide('add_drop')">
-                <h3>Addition or Withdrawal of Subjects</h3>
-                <button>View Steps</button>
-            </div>
-            <div class="card" onclick="openGuide('attendance')">
+            <div class="card">
                 <h3>Check Attendance</h3>
-                <button>View Steps</button>
+                <div class="card-buttons">
+                    <button onclick="openGuide('attendance')">View Steps</button>
+                    <button class="download-btn" onclick="downloadGuide('attendance')">⬇ Download</button>
+                </div>
             </div>
-            <div class="card" onclick="openGuide('assignments')">
+            <div class="card">
                 <h3>Check Assignments</h3>
-                <button>View Steps</button>
+                <div class="card-buttons">
+                    <button onclick="openGuide('assignments')">View Steps</button>
+                    <button class="download-btn" onclick="downloadGuide('assignments')">⬇ Download</button>
+                </div>
             </div>
-            <div class="card" onclick="openGuide('wifi')">
+            <div class="card">
                 <h3>Use Campus Wi-Fi</h3>
-                <button>View Steps</button>
+                <div class="card-buttons">
+                    <button onclick="openGuide('wifi')">View Steps</button>
+                    <button class="download-btn" onclick="downloadGuide('wifi')">⬇ Download</button>
+                </div>
             </div>
         </div>
     </section>
@@ -906,6 +940,21 @@
                 }
             }
         });
+        // Download guide as PDF function
+        // Download guide as JPEG function
+        function downloadGuide(guideName) {
+            // Assuming you have JPEG files named like: add_drop_1.jpg, add_drop_2.jpg, etc.
+            // Download the first image of each guide
+            const jpgUrl = `main.png`;
+            const link = document.createElement('a');
+            link.href = jpgUrl;
+            link.download = `KCGI_${guideName.replace('_', ' ')}_Guide.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            alert(`Downloading ${guideName.replace('_', ' ')} Guide (first image)...`);
+        }
     </script>
 </body>
 
