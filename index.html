@@ -212,6 +212,7 @@
             background: rgba(0, 0, 0, 0.6);
             justify-content: center;
             align-items: center;
+            z-index: 3000;
         }
 
         .modal-content {
@@ -219,12 +220,204 @@
             padding: 20px;
             border-radius: 12px;
             max-width: 90%;
+            max-height: 90%;
+            width: 800px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            min-height: 500px;
+        }
+
+        .modal-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 24px;
+            padding: 10px 0;
+            flex-shrink: 0;
         }
 
         .close {
             cursor: pointer;
-            text-align: right;
-            font-size: 18px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .close:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        /* ================= SLIDER FIX ================= */
+        .slider-container {
+            position: relative;
+            flex: 1;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+            flex: 1;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .slide img {
+            width: 100%;
+            max-height: 350px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .slide-caption {
+            flex: 1;
+            overflow-y: auto;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            color: #333;
+            background: white;
+            border-radius: 8px;
+            line-height: 1.6;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-height: 60px;
+            max-height: 200px;
+        }
+
+        .slide-caption::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .slide-caption::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .slide-caption::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .slide-caption::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot:hover {
+            background: #aaa;
+        }
+
+        .slider-dot.active {
+            background: var(--secondary);
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            transition: all 0.3s;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-arrow.prev {
+            left: 20px;
+        }
+
+        .slider-arrow.next {
+            right: 20px;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-shrink: 0;
+            padding: 10px;
+        }
+
+        .auto-play-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .auto-play-btn:hover {
+            background: #0c2238;
         }
 
         /* ================= FOOTER ================= */
@@ -345,30 +538,44 @@
     <section id="problems">
         <h2>❓ Student Problems & Solutions</h2>
         <div class="card-container">
-            <div class="card" onclick="openGuide('add_drop.png')">
-                <h3>Add / Drop Subjects</h3>
+            <div class="card" onclick="openGuide('add_drop_pre')">
+                <h3>Check Subjects Schedules</h3>
                 <button>View Steps</button>
             </div>
-            <div class="card" onclick="openGuide('attendance.png')">
+            <div class="card" onclick="openGuide('add_drop')">
+                <h3>Addition or Withdrawal of Subjects</h3>
+                <button>View Steps</button>
+            </div>
+            <div class="card" onclick="openGuide('attendance')">
                 <h3>Check Attendance</h3>
                 <button>View Steps</button>
             </div>
-            <div class="card" onclick="openGuide('assignments.png')">
+            <div class="card" onclick="openGuide('assignments')">
                 <h3>Check Assignments</h3>
                 <button>View Steps</button>
             </div>
-            <div class="card" onclick="openGuide('wifi.png')">
+            <div class="card" onclick="openGuide('wifi')">
                 <h3>Use Campus Wi-Fi</h3>
                 <button>View Steps</button>
             </div>
         </div>
     </section>
 
-    <!-- ================= MODAL ================= -->
+    <!-- ================= MODAL WITH SLIDER ================= -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="close" onclick="closeModal()">✖</div>
-            <img id="modalImg" style="width:100%">
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack"></div>
+                <button class="slider-arrow prev" onclick="prevSlide()">❮</button>
+                <button class="slider-arrow next" onclick="nextSlide()">❯</button>
+                <div class="slider-nav" id="sliderNav"></div>
+            </div>
+            <div class="slider-controls">
+                <button class="auto-play-btn" onclick="toggleAutoPlay()" id="autoPlayBtn">⏸ Pause Auto-play</button>
+                <span id="slideCounter">1/4</span>
+            </div>
         </div>
     </div>
 
@@ -386,6 +593,77 @@
 
     <script>
         const previewLength = 180; // characters to show in preview
+
+        // Define image sets for each guide
+        const guideImages = {
+            'add_drop_pre': {
+                title: 'Add / Drop Subjects Guide',
+                images: [
+                    { src: 'subject_Check/1.jpg', caption: 'Steps 1: Login to CampusPortal -> Home -> Campus Plan Web Menu' },
+                    { src: 'subject_Check/2.jpg', caption: 'Step 2: Login using your student credentials ' },
+                    { src: 'subject_Check/4.jpg', caption: 'Step 3: Web Syllabus' },
+                    { src: 'subject_Check/5.jpg', caption: 'Step 4: Search Syllabus' },
+                    { src: 'subject_Check/3.jpg', caption: 'Select your Semester-> Select Day-> Search -> You will see all the subjects scheduled for that day' },
+                ]
+            }, 'add_drop': {
+                title: 'Add / Drop Subjects Guide',
+                images: [
+                    { src: 'Addition_Withdraw/1.jpg', caption: 'Steps 1: Login to KingLMS -> Organisations -> KCGI Students Web' },
+                    { src: 'Addition_Withdraw/2.png', caption: 'Step 2: Scroll down to the Addition Withdraw -> Select the Manual And Read the Instructions ' },
+                    { src: 'Addition_Withdraw/4.jpg', caption: 'Step 3: Refer this Presentation file with all the steps to add or withdraw subjects' },
+                    { src: 'Addition_Withdraw/5.jpg', caption: 'Step 4: Proceed to add or withdraw subjects' },
+                    { src: 'Addition_Withdraw/3.jpg', caption: 'Disclaimer "Addition and Withdraw is only available from 5:00 AM to 17:00 PM' },
+                ]
+            },
+            'assignments': {
+                title: 'Check Assignments Guide',
+                images: [
+                    {
+                        src: 'assignments_1.png',
+                        caption: 'Step 1: Go to the assignments section in your course management system.'
+                    },
+                    {
+                        src: 'assignments_2.png',
+                        caption: 'Step 2: Check all assignment deadlines and submission requirements.'
+                    },
+                    {
+                        src: 'assignments_3.png',
+                        caption: 'Step 3: Download all necessary assignment files and materials.'
+                    },
+                    {
+                        src: 'assignments_4.png',
+                        caption: 'Step 4: Submit completed work before the deadline and keep a backup.'
+                    }
+                ]
+            },
+            'wifi': {
+                title: 'Use Campus Wi-Fi Guide',
+                images: [
+                    {
+                        src: 'wifi_1.png',
+                        caption: 'Step 1: Connect to KCGI-WiFi network from your device settings.'
+                    },
+                    {
+                        src: 'wifi_2.png',
+                        caption: 'Step 2: Enter your student credentials when prompted.'
+                    },
+                    {
+                        src: 'wifi_3.png',
+                        caption: 'Step 3: Accept the security certificate if prompted by browser.'
+                    },
+                    {
+                        src: 'wifi_4.png',
+                        caption: 'Step 4: Test your connection by accessing the student portal.'
+                    }
+                ]
+            }
+        };
+
+        // Current slider state
+        let currentSlideIndex = 0;
+        let currentGuide = '';
+        let autoSlideInterval = null;
+        let isAutoPlay = true;
 
         // Initialize preview text dynamically
         document.querySelectorAll('.info-box').forEach(box => {
@@ -430,14 +708,149 @@
             speechSynthesis.speak(msg);
         }
 
-        // Modal
-        function openGuide(img) {
-            document.getElementById("modalImg").src = img;
-            document.getElementById("modal").style.display = "flex";
+        // Initialize slider for a specific guide
+        function initSlider(guideName) {
+            const guide = guideImages[guideName];
+            const sliderTrack = document.getElementById('sliderTrack');
+            const sliderNav = document.getElementById('sliderNav');
+            const modalTitle = document.getElementById('modalTitle');
+
+            // Set modal title
+            modalTitle.textContent = guide.title;
+
+            // Clear existing content
+            sliderTrack.innerHTML = '';
+            sliderNav.innerHTML = '';
+
+            // Create slides
+            guide.images.forEach((image, index) => {
+                // Create slide
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                slide.innerHTML = `
+                    <div class="slide-content">
+                        <img src="${image.src}" alt="Step ${index + 1}" onerror="this.src='placeholder.png'">
+                        <div class="slide-caption">${image.caption}</div>
+                    </div>
+                `;
+                sliderTrack.appendChild(slide);
+
+                // Create navigation dot
+                const dot = document.createElement('div');
+                dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => goToSlide(index);
+                sliderNav.appendChild(dot);
+            });
+
+            currentSlideIndex = 0;
+            updateSliderPosition();
+            if (isAutoPlay) {
+                startAutoSlide();
+                autoSlideInterval = setInterval(nextSlide, 4000);
+
+            }
+            updateSlideCounter();
         }
 
+        // Update slider position
+        function updateSliderPosition() {
+            const sliderTrack = document.getElementById('sliderTrack');
+            sliderTrack.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+            // Update active dot
+            document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlideIndex);
+            });
+
+            updateSlideCounter();
+        }
+
+        // Update slide counter
+        function updateSlideCounter() {
+            if (currentGuide) {
+                const totalSlides = guideImages[currentGuide].images.length;
+                document.getElementById('slideCounter').textContent =
+                    `${currentSlideIndex + 1}/${totalSlides}`;
+            }
+        }
+
+        // Navigate to specific slide
+        function goToSlide(index) {
+            const guide = guideImages[currentGuide];
+            if (guide && index >= 0 && index < guide.images.length) {
+                currentSlideIndex = index;
+                updateSliderPosition();
+                resetAutoSlide();
+            }
+        }
+
+        // Next slide
+        function nextSlide() {
+            const guide = guideImages[currentGuide];
+            if (guide) {
+                currentSlideIndex = (currentSlideIndex + 1) % guide.images.length;
+                updateSliderPosition();
+                resetAutoSlide();
+            }
+        }
+
+        // Previous slide
+        function prevSlide() {
+            const guide = guideImages[currentGuide];
+            if (guide) {
+                currentSlideIndex = (currentSlideIndex - 1 + guide.images.length) % guide.images.length;
+                updateSliderPosition();
+                resetAutoSlide();
+            }
+        }
+
+        // Start auto slide
+        function startAutoSlide() {
+            stopAutoSlide();
+            autoSlideInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
+        }
+
+        // Stop auto slide
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
+        }
+
+        // Toggle auto play
+        function toggleAutoPlay() {
+            isAutoPlay = !isAutoPlay;
+            const btn = document.getElementById('autoPlayBtn');
+
+            if (isAutoPlay) {
+                btn.textContent = '⏸ Pause Auto-play';
+                startAutoSlide();
+            } else {
+                btn.textContent = '▶ Resume Auto-play';
+                stopAutoSlide();
+            }
+        }
+
+        // Reset auto slide timer
+        function resetAutoSlide() {
+            if (isAutoPlay) {
+                stopAutoSlide();
+                startAutoSlide();
+            }
+        }
+
+        // Open guide with slider
+        function openGuide(guideName) {
+            currentGuide = guideName;
+            document.getElementById("modal").style.display = "flex";
+            initSlider(guideName);
+        }
+
+        // Close modal
         function closeModal() {
             document.getElementById("modal").style.display = "none";
+            stopAutoSlide();
         }
 
         // Dropdown toggle
@@ -455,6 +868,42 @@
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.menu')) {
                 document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            }
+        });
+
+        // Pause auto-slide when modal is hovered
+        document.getElementById('modal').addEventListener('mouseenter', function () {
+            if (isAutoPlay) {
+                stopAutoSlide();
+            }
+        });
+
+        document.getElementById('modal').addEventListener('mouseleave', function () {
+            if (isAutoPlay) {
+                startAutoSlide();
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function (e) {
+            if (e.target === document.getElementById('modal')) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (document.getElementById('modal').style.display === 'flex') {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === ' ') {
+                    e.preventDefault();
+                    toggleAutoPlay();
+                }
             }
         });
     </script>
