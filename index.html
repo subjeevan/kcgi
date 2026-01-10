@@ -7,11 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        /* =============================
-           CONFIGURATION
-        ============================= */
         :root {
-            --logo-left-gap: 100px;
+            --logo-left-gap: 50px;
             --primary: #0f2a44;
             --secondary: #1f6feb;
             --light-bg: #f3f6fa;
@@ -24,24 +21,85 @@
             color: #1c1c1c;
         }
 
-        /* =============================
-           HEADER
-        ============================= */
+        /* ================= TOP MENU ================= */
+        nav {
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            padding: 8px 0;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+        }
+
+        .menu {
+            display: flex;
+            gap: 28px;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item>a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 6px 10px;
+            display: block;
+        }
+
+        .menu-item>a:hover {
+            color: #ffd966;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 270px;
+            top: 35px;
+            border-radius: 10px;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+            overflow: hidden;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 12px 15px;
+            color: #1c1c1c;
+            text-decoration: none;
+            font-size: 13px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown a:hover {
+            background: #f3f6fa;
+            color: var(--secondary);
+        }
+
+        .menu-item:hover .dropdown {
+            display: block;
+        }
+
+        /* ================= HEADER ================= */
         .kcgi-header {
             position: relative;
             background: linear-gradient(135deg, #0f2a44, #163b5f);
-            padding: 35px 0;
+            padding: 15px 0;
+            /* compact */
             animation: fadeSlideDown 1s ease-out;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .kcgi-logo {
-            position: absolute;
-            left: var(--logo-left-gap);
-            top: 50%;
-            transform: translateY(-50%);
-            width: 380px;
-            animation: zoomIn 1.2s ease-out;
+            width: 200px;
+            /* smaller logo */
+            margin-bottom: 8px;
         }
 
         .kcgi-title {
@@ -51,28 +109,27 @@
 
         .kcgi-title h1 {
             margin: 0;
-            font-size: 30px;
+            font-size: 22px;
+            /* smaller title */
         }
 
         .kcgi-title p {
-            margin-top: 6px;
+            margin: 4px 0;
+            font-size: 12px;
             color: #dce6f2;
-            font-size: 14px;
         }
 
         .badge {
             display: inline-block;
-            margin-top: 10px;
-            padding: 5px 12px;
+            margin-top: 6px;
+            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             background: rgba(255, 255, 255, 0.15);
             color: #eaf1ff;
         }
 
-        /* =============================
-           SECTIONS
-        ============================= */
+        /* ================= SECTIONS ================= */
         section {
             padding: 40px 20px;
             animation: fadeUp 1s ease forwards;
@@ -96,14 +153,33 @@
             padding: 22px;
             text-align: center;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-            opacity: 0;
-            animation: fadeUp 0.8s ease forwards;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-6px);
             box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-map {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f2f2f2;
+            padding: 1px;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: #f8fbff;
+            border-left: 4px solid var(--secondary);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: left;
         }
 
         button {
@@ -114,34 +190,13 @@
             border-radius: 8px;
             cursor: pointer;
             margin: 6px;
-            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         button:hover {
             background: #174ea6;
-            transform: scale(1.05);
         }
 
-        /* =============================
-           INNER INFO CARD (ONLY ADDITION)
-        ============================= */
-        .info-box {
-            background: #f8fbff;
-            border-left: 4px solid var(--secondary);
-            padding: 12px 14px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-size: 14px;
-            line-height: 1.6;
-            text-align: left;
-            color: #1f2a44;
-            max-height: 120px;
-            overflow-y: auto;
-        }
-
-        /* =============================
-           MODAL
-        ============================= */
+        /* ================= MODAL ================= */
         .modal {
             display: none;
             position: fixed;
@@ -156,12 +211,6 @@
             padding: 20px;
             border-radius: 12px;
             max-width: 90%;
-            animation: fadeUp 0.5s ease;
-        }
-
-        .modal-content img {
-            width: 100%;
-            border-radius: 8px;
         }
 
         .close {
@@ -170,9 +219,23 @@
             font-size: 18px;
         }
 
-        /* =============================
-           ANIMATIONS
-        ============================= */
+        /* ================= FOOTER ================= */
+        .kcgi-footer {
+            background: #0f2a44;
+            color: #eaf1ff;
+            text-align: center;
+            padding: 12px 10px;
+            font-size: 13px;
+            border-top: 2px solid var(--secondary);
+        }
+
+        .kcgi-footer span {
+            font-weight: bold;
+            color: #ffd966;
+            margin: 0 4px;
+        }
+
+        /* ================= ANIMATIONS ================= */
         @keyframes fadeSlideDown {
             from {
                 opacity: 0;
@@ -182,18 +245,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50%) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(-50%) scale(1);
             }
         }
 
@@ -208,37 +259,59 @@
                 transform: translateY(0);
             }
         }
-
-        .card-map {
-            width: 100%;
-            height: 300px;
-            object-fit: contain;
-            border-radius: 8px;
-            background: #f2f2f2;
-            padding: 1px;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- ================= MENU ================= -->
+    <nav>
+        <div class="menu">
+            <div class="menu-item">
+                <a href="#">🏫 Campus Info</a>
+                <div class="dropdown">
+                    <a href="#ekimae">Ekimae Campus</a>
+                    <a href="#hblock">Hyakumanben (H Block)</a>
+                    <a href="#mblock">Hyakumanben (M Block)</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <a href="#">📚 Academic Help</a>
+                <div class="dropdown">
+                    <a href="#problems">Add / Drop Subjects</a>
+                    <a href="#problems">Attendance</a>
+                    <a href="#problems">Assignments</a>
+                    <a href="#problems">Wi-Fi Guide</a>
+                </div>
+            </div>
+            <div class="menu-item">
+                <a href="#">🏠 Daily Life in Kyoto</a>
+                <div class="dropdown">
+                    <a href="https://kyoto-kogomi.net/wp-content/uploads/2024/01/gominowakekatadashikataleafleten.pdf"
+                        target="_blank">🗑 Garbage Separation Guide (PDF)</a>
+                    <a href="https://www.youtube.com/watch?v=Z3p0eYKFedU&t=179s" target="_blank">🎥 Garbage Separation
+                        Video</a>
+                    <a href="https://www.google.com/search?q=gyomu+supermarket&udm=7" target="_blank">🛒 Cheap Grocery –
+                        Gyomu Super</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= HEADER ================= -->
     <header class="kcgi-header">
         <img src="logo.svg" alt="KCGI Logo" class="kcgi-logo">
         <div class="kcgi-title">
             <h1>KCGI Student Support Portal</h1>
             <p>Scan • Listen • Navigate • Learn</p>
-            <div class="badge">Official Academic Support System</div>
+            <div class="badge">Project by Group 17</div>
         </div>
     </header>
 
-    <!-- BUILDINGS -->
-    <section>
+    <!-- ================= BUILDINGS ================= -->
+    <section id="ekimae">
         <h2>🏢 Campus Buildings</h2>
-
         <div class="card-container">
-
             <div class="card">
                 <img src="ekimae.png" class="card-map">
                 <h3>KCGI Ekimae Campus</h3>
@@ -252,13 +325,13 @@
                 </a>
             </div>
 
-            <div class="card">
+            <div class="card" id="hblock">
                 <img src="hblock.png" class="card-map">
                 <h3>KCGI Hyakumanben Campus (H Block)</h3>
                 <div class="info-box" id="buildingB">
                     Located near Kyoto University. Printed ID cards, orientation,
                     scholarship sessions, and official signings are conducted here.
-                    Many regular classes are also held. Check timetable for H or M block.
+                    Many regular classes are also held.
                 </div>
                 <button onclick="speakFromBox('buildingB')">🔊 Listen Info</button>
                 <a href="https://maps.app.goo.gl/MvAhDWuq6gdK68Vc8" target="_blank">
@@ -266,7 +339,7 @@
                 </a>
             </div>
 
-            <div class="card">
+            <div class="card" id="mblock">
                 <img src="mblock.png" class="card-map">
                 <h3>KCGI Hyakumanben Campus (M Block)</h3>
                 <div class="info-box" id="buildingC">
@@ -278,12 +351,11 @@
                     <button>🗺 Open Google Map</button>
                 </a>
             </div>
-
         </div>
     </section>
 
-    <!-- PROBLEMS -->
-    <section>
+    <!-- ================= PROBLEMS ================= -->
+    <section id="problems">
         <h2>❓ Student Problems & Solutions</h2>
         <div class="card-container">
             <div class="card" onclick="openGuide('add_drop.png')">
@@ -305,15 +377,26 @@
         </div>
     </section>
 
-    <!-- MODAL -->
+    <!-- ================= MODAL ================= -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="close" onclick="closeModal()">✖</div>
-            <img id="modalImg">
+            <img id="modalImg" style="width:100%">
         </div>
     </div>
 
-    <!-- SCRIPT -->
+    <!-- ================= FOOTER ================= -->
+    <footer class="kcgi-footer">
+        Project by Group 17:
+        <span>Jeevan Subedi (M25W7486)</span>,
+        <span>Uddin Borhan()</span>,
+        <span>Ahmed Md Jonayed()</span>,
+        <span>Baskota Prekshya()</span>
+        <span>Hossain Yeakub ()</span>
+        <span>Dawadi Ramesh ()</span>
+        <span>Islam Md Jahirul ()</span>
+    </footer>
+
     <script>
         function speakFromBox(id) {
             const text = document.getElementById(id).innerText;
