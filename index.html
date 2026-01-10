@@ -41,16 +41,17 @@
             position: relative;
         }
 
-        .menu-item>a {
+        .menu-link {
             color: white;
             text-decoration: none;
             font-size: 14px;
             font-weight: bold;
             padding: 6px 10px;
             display: block;
+            cursor: pointer;
         }
 
-        .menu-item>a:hover {
+        .menu-link:hover {
             color: #ffd966;
         }
 
@@ -58,11 +59,12 @@
             display: none;
             position: absolute;
             background: white;
-            min-width: 270px;
-            top: 35px;
-            border-radius: 10px;
+            min-width: 250px;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
             box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
-            overflow: hidden;
+            z-index: 100;
         }
 
         .dropdown a {
@@ -79,7 +81,7 @@
             color: var(--secondary);
         }
 
-        .menu-item:hover .dropdown {
+        .menu-item.active .dropdown {
             display: block;
         }
 
@@ -88,17 +90,14 @@
             position: relative;
             background: linear-gradient(135deg, #0f2a44, #163b5f);
             padding: 15px 0;
-            /* compact */
-            animation: fadeSlideDown 1s ease-out;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .kcgi-logo {
             width: 200px;
-            /* smaller logo */
             margin-bottom: 8px;
         }
 
@@ -110,7 +109,6 @@
         .kcgi-title h1 {
             margin: 0;
             font-size: 22px;
-            /* smaller title */
         }
 
         .kcgi-title p {
@@ -132,7 +130,6 @@
         /* ================= SECTIONS ================= */
         section {
             padding: 40px 20px;
-            animation: fadeUp 1s ease forwards;
         }
 
         h2 {
@@ -234,31 +231,6 @@
             color: #ffd966;
             margin: 0 4px;
         }
-
-        /* ================= ANIMATIONS ================= */
-        @keyframes fadeSlideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
     </style>
 </head>
 
@@ -268,7 +240,7 @@
     <nav>
         <div class="menu">
             <div class="menu-item">
-                <a href="#">🏫 Campus Info</a>
+                <a href="#" class="menu-link">🏫 Campus Info ▾</a>
                 <div class="dropdown">
                     <a href="#ekimae">Ekimae Campus</a>
                     <a href="#hblock">Hyakumanben (H Block)</a>
@@ -276,7 +248,7 @@
                 </div>
             </div>
             <div class="menu-item">
-                <a href="#">📚 Academic Help</a>
+                <a href="#" class="menu-link">📚 Academic Help ▾</a>
                 <div class="dropdown">
                     <a href="#problems">Add / Drop Subjects</a>
                     <a href="#problems">Attendance</a>
@@ -285,14 +257,14 @@
                 </div>
             </div>
             <div class="menu-item">
-                <a href="#">🏠 Daily Life in Kyoto</a>
+                <a href="#" class="menu-link">🏠 Daily Life in Kyoto ▾</a>
                 <div class="dropdown">
                     <a href="https://kyoto-kogomi.net/wp-content/uploads/2024/01/gominowakekatadashikataleafleten.pdf"
-                        target="_blank">🗑 Garbage Separation Guide (PDF)</a>
-                    <a href="https://www.youtube.com/watch?v=Z3p0eYKFedU&t=179s" target="_blank">🎥 Garbage Separation
-                        Video</a>
-                    <a href="https://www.google.com/search?q=gyomu+supermarket&udm=7" target="_blank">🛒 Cheap Grocery –
-                        Gyomu Super</a>
+                        target="_blank">🗑 Garbage PDF</a>
+                    <a href="https://www.youtube.com/watch?v=Z3p0eYKFedU&t=179s" target="_blank">🚇 Transport Guide</a>
+                    <a href="https://www.youtube.com/watch?v=xmK3tolUeF0" target="_blank">🛒 Gyomu Super</a>
+                    <a href="https://www.youtube.com/watch?v=LB9Gh3xPUMA&t=258s" target="_blank">🗣 Japanese
+                        Greetings</a>
                 </div>
             </div>
         </div>
@@ -389,15 +361,16 @@
     <footer class="kcgi-footer">
         Project by Group 17:
         <span>Jeevan Subedi (M25W7486)</span>,
-        <span>Uddin Borhan()</span>,
-        <span>Ahmed Md Jonayed()</span>,
-        <span>Baskota Prekshya()</span>
-        <span>Hossain Yeakub ()</span>
-        <span>Dawadi Ramesh ()</span>
-        <span>Islam Md Jahirul ()</span>
+        <span>Uddin Borhan</span>,
+        <span>Ahmed Md Jonayed (M25W7647)</span>,
+        <span>Baskota Prekshya</span>,
+        <span>Hossain Yeakub</span>,
+        <span>Dawadi Ramesh</span>,
+        <span>Islam Md Jahirul</span>
     </footer>
 
     <script>
+        // Speech function
         function speakFromBox(id) {
             const text = document.getElementById(id).innerText;
             speechSynthesis.cancel();
@@ -407,6 +380,7 @@
             speechSynthesis.speak(msg);
         }
 
+        // Modal
         function openGuide(img) {
             document.getElementById("modalImg").src = img;
             document.getElementById("modal").style.display = "flex";
@@ -415,8 +389,28 @@
         function closeModal() {
             document.getElementById("modal").style.display = "none";
         }
-    </script>
 
+        // Dropdown click toggle for mobile & desktop
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('active');
+
+                // close other dropdowns
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    if (item !== parent) item.classList.remove('active');
+                });
+            });
+        });
+
+        // click outside to close
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.menu')) {
+                document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            }
+        });
+    </script>
 </body>
 
 </html>
