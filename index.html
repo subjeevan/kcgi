@@ -179,6 +179,17 @@
             text-align: left;
         }
 
+        .read-more {
+            color: var(--secondary);
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
         button {
             background: var(--secondary);
             color: white;
@@ -284,45 +295,49 @@
     <section id="ekimae">
         <h2>🏢 Campus Buildings</h2>
         <div class="card-container">
-            <div class="card">
+
+            <!-- Ekimae -->
+            <div class="card" id="ekimaeCard">
                 <img src="ekimae.png" class="card-map">
                 <h3>KCGI Ekimae Campus</h3>
-                <div class="info-box" id="buildingA">
-                    KCGI Ekimae Campus is the main academic campus near Kyoto Station.
-                    Most regular classes and academic activities are conducted here.
+                <div class="info-box" id="buildingA"
+                    data-fulltext="KCGI Ekimae Campus is the main academic campus. Most regular classes and academic activities are conducted here.">
                 </div>
+                <a href="#" class="read-more" onclick="toggleTextDynamic(event, 'buildingA')">Read more</a>
                 <button onclick="speakFromBox('buildingA')">🔊 Listen Info</button>
                 <a href="https://maps.app.goo.gl/MAd9ZF9vq7L3kL4g8" target="_blank">
                     <button>🗺 Open Google Map</button>
                 </a>
             </div>
 
+            <!-- H Block -->
             <div class="card" id="hblock">
                 <img src="hblock.png" class="card-map">
                 <h3>KCGI Hyakumanben Campus (H Block)</h3>
-                <div class="info-box" id="buildingB">
-                    Located near Kyoto University. Printed ID cards, orientation,
-                    scholarship sessions, and official signings are conducted here.
-                    Many regular classes are also held.
+                <div class="info-box" id="buildingB"
+                    data-fulltext="Orientation will be held here at H Block, where students will select their academic concentration, register for subjects, receive guidance on scholarship programs, get their student ID cards, and learn how to use the attendance system. Lectures will take place in both H and M Blocks, so students should check their subject schedules and timetables to know the exact locations.">
                 </div>
+                <a href="#" class="read-more" onclick="toggleTextDynamic(event, 'buildingB')">Read more</a>
                 <button onclick="speakFromBox('buildingB')">🔊 Listen Info</button>
                 <a href="https://maps.app.goo.gl/MvAhDWuq6gdK68Vc8" target="_blank">
                     <button>🗺 Open Google Map</button>
                 </a>
             </div>
 
+            <!-- M Block -->
             <div class="card" id="mblock">
                 <img src="mblock.png" class="card-map">
                 <h3>KCGI Hyakumanben Campus (M Block)</h3>
-                <div class="info-box" id="buildingC">
-                    Used for selected academic classes and activities.
-                    Students must verify their timetable before attending.
+                <div class="info-box" id="buildingC"
+                    data-fulltext="M Block is next to H Block. Students can go here for enquiry and help regarding addition or withdrawing subjects and to meet their academic counselors. Lectures will take place in both H and M Blocks, so students should check their subject schedules and timetables to know the exact locations.">
                 </div>
+                <a href="#" class="read-more" onclick="toggleTextDynamic(event, 'buildingC')">Read more</a>
                 <button onclick="speakFromBox('buildingC')">🔊 Listen Info</button>
                 <a href="https://maps.app.goo.gl/RqeovaRUtw4VrMy29" target="_blank">
                     <button>🗺 Open Google Map</button>
                 </a>
             </div>
+
         </div>
     </section>
 
@@ -370,11 +385,46 @@
     </footer>
 
     <script>
-        // Speech function
+        const previewLength = 180; // characters to show in preview
+
+        // Initialize preview text dynamically
+        document.querySelectorAll('.info-box').forEach(box => {
+            const fullText = box.dataset.fulltext;
+            if (fullText.length > previewLength) {
+                box.innerText = fullText.substring(0, previewLength) + '...';
+                box.dataset.expanded = "false";
+            } else {
+                box.innerText = fullText;
+                box.dataset.expanded = "true";
+            }
+        });
+
+        // Toggle Read More / Show Less dynamically
+        function toggleTextDynamic(e, id) {
+            e.preventDefault();
+            const box = document.getElementById(id);
+            const fullText = box.dataset.fulltext;
+            const expanded = box.dataset.expanded === "true";
+
+            if (expanded) {
+                // Collapse
+                box.innerText = fullText.substring(0, previewLength) + '...';
+                box.dataset.expanded = "false";
+                e.target.innerText = "Read more";
+            } else {
+                // Expand
+                box.innerText = fullText;
+                box.dataset.expanded = "true";
+                e.target.innerText = "Show less";
+            }
+        }
+
+        // Speech function reads full text
         function speakFromBox(id) {
-            const text = document.getElementById(id).innerText;
+            const box = document.getElementById(id);
+            const fullText = box.dataset.fulltext;
             speechSynthesis.cancel();
-            const msg = new SpeechSynthesisUtterance(text);
+            const msg = new SpeechSynthesisUtterance(fullText);
             msg.lang = "en-US";
             msg.rate = 0.95;
             speechSynthesis.speak(msg);
@@ -390,21 +440,18 @@
             document.getElementById("modal").style.display = "none";
         }
 
-        // Dropdown click toggle for mobile & desktop
+        // Dropdown toggle
         document.querySelectorAll('.menu-link').forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const parent = this.parentElement;
                 parent.classList.toggle('active');
-
-                // close other dropdowns
                 document.querySelectorAll('.menu-item').forEach(item => {
                     if (item !== parent) item.classList.remove('active');
                 });
             });
         });
 
-        // click outside to close
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.menu')) {
                 document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
