@@ -477,12 +477,13 @@
                 </div>
             </div>
             <div class="menu-item">
-                <a href="#" class="menu-link">📚 Academic Help ▾</a>
+                <a href="#" class="menu-link">📚 Academic Help Step by Step Guide ▾</a>
                 <div class="dropdown">
-                    <a href="main.png">Add / Drop Subjects</a>
-                    <a href="#problems">Attendance</a>
-                    <a href="#problems">Assignments</a>
-                    <a href="#problems">Wi-Fi Guide</a>
+                    <a href="search_sub.png">How to check Subjects schedule</a>
+                    <a href="add_withdraw.png">How to Addition and Withdraw subjects/a>
+                        <a href="ass_check.png">How to check Assignments</a>
+                        <a href="attendance.png">How to do Attendance</a>
+                        <a href="att_check.png">How to check your Attendance</a>
                 </div>
             </div>
             <div class="menu-item">
@@ -562,39 +563,55 @@
     <!-- ================= PROBLEMS ================= -->
     <!-- ================= PROBLEMS ================= -->
     <section id="problems">
-        <h2>❓ Student Problems & Solutions</h2>
+        <h2>Step by step guide on KCGI Portal Usage</h2>
         <div class="card-container">
             <div class="card">
-                <h3>Add / Drop Subjects</h3>
+                <h3>Check Subjects Schedule</h3>
                 <div class="card-buttons">
-                    <button onclick="openGuide('add_drop')">View Steps</button>
-                    <button class="download-btn" onclick="downloadGuide('add_drop')">⬇ Download</button>
+                    <button onclick="openGuide('add_drop_pre')">View Steps</button>
+                    <a href="search_sub.png" download class="download-btn" style="text-decoration: none;">
+                        ⬇ Download
+                    </a>
                 </div>
             </div>
             <div class="card">
-                <h3>Check Attendance</h3>
+                <h3>Addition and Withdraw Subjects</h3>
                 <div class="card-buttons">
-                    <button onclick="openGuide('attendance')">View Steps</button>
-                    <button class="download-btn" onclick="downloadGuide('attendance')">⬇ Download</button>
+                    <button onclick="openGuide('add_drop')">View Steps</button>
+                    <a href="add_withdraw.png" download class="download-btn" style="text-decoration: none;">
+                        ⬇ Download
+                    </a>
                 </div>
             </div>
             <div class="card">
                 <h3>Check Assignments</h3>
                 <div class="card-buttons">
                     <button onclick="openGuide('assignments')">View Steps</button>
-                    <button class="download-btn" onclick="downloadGuide('assignments')">⬇ Download</button>
+                    <a href="ass_check.png" download class="download-btn" style="text-decoration: none;">
+                        ⬇ Download
+                    </a>
                 </div>
             </div>
             <div class="card">
-                <h3>Use Campus Wi-Fi</h3>
+                <h3>How to do attendance</h3>
                 <div class="card-buttons">
                     <button onclick="openGuide('wifi')">View Steps</button>
-                    <button class="download-btn" onclick="downloadGuide('wifi')">⬇ Download</button>
+                    <a href="attendance.png" download class="download-btn" style="text-decoration: none;">
+                        ⬇ Download
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <h3>How to check attendance</h3>
+                <div class="card-buttons">
+                    <button onclick="openGuide('wifi')">View Steps</button>
+                    <a href="att_check.png" download class="download-btn" style="text-decoration: none;">
+                        ⬇ Download
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- ================= MODAL WITH SLIDER ================= -->
     <div class="modal" id="modal">
         <div class="modal-content">
