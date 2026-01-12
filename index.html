@@ -480,10 +480,10 @@
                 <a href="#" class="menu-link">📚 Academic Help Step by Step Guide ▾</a>
                 <div class="dropdown">
                     <a href="search_sub.png">How to check Subjects schedule</a>
-                    <a href="add_withdraw.png">How to Addition and Withdraw subjects/a>
-                        <a href="ass_check.png">How to check Assignments</a>
-                        <a href="attendance.png">How to do Attendance</a>
-                        <a href="att_check.png">How to check your Attendance</a>
+                    <a href="add_withdraw.png">How to Addition and Withdraw subjects</a>
+                    <a href="ass_check.png">How to check Assignments</a>
+                    <a href="attendance.png">How to do Attendance</a>
+                    <a href="att_check.png">How to check your Attendance</a>
                 </div>
             </div>
             <div class="menu-item">
@@ -491,10 +491,12 @@
                 <div class="dropdown">
                     <a href="https://kyoto-kogomi.net/wp-content/uploads/2024/01/gominowakekatadashikataleafleten.pdf"
                         target="_blank">🗑 Garbage PDF</a>
-                    <a href="https://www.youtube.com/watch?v=Z3p0eYKFedU&t=179s" target="_blank">🚇 Transport Guide</a>
-                    <a href="https://www.youtube.com/watch?v=xmK3tolUeF0" target="_blank">🛒 Gyomu Super</a>
+                    <a href="https://www.youtube.com/watch?v=Z3p0eYKFedU&t=179s" target="_blank">🚇 Transport Guide
+                        using ICOCA</a>
+                    <a href="https://www.youtube.com/watch?v=xmK3tolUeF0" target="_blank">🛒 Cheap grocerry -Gyomu
+                        Super</a>
                     <a href="https://www.youtube.com/watch?v=LB9Gh3xPUMA&t=258s" target="_blank">🗣 Japanese
-                        Greetings</a>
+                        Greetings for workplace</a>
                 </div>
             </div>
         </div>
@@ -561,7 +563,6 @@
     </section>
 
     <!-- ================= PROBLEMS ================= -->
-    <!-- ================= PROBLEMS ================= -->
     <section id="problems">
         <h2>Step by step guide on KCGI Portal Usage</h2>
         <div class="card-container">
@@ -595,7 +596,7 @@
             <div class="card">
                 <h3>How to do attendance</h3>
                 <div class="card-buttons">
-                    <button onclick="openGuide('wifi')">View Steps</button>
+                    <button onclick="openGuide('attendance')">View Steps</button>
                     <a href="attendance.png" download class="download-btn" style="text-decoration: none;">
                         ⬇ Download
                     </a>
@@ -604,7 +605,7 @@
             <div class="card">
                 <h3>How to check attendance</h3>
                 <div class="card-buttons">
-                    <button onclick="openGuide('wifi')">View Steps</button>
+                    <button onclick="openGuide('att_check')">View Steps</button>
                     <a href="att_check.png" download class="download-btn" style="text-decoration: none;">
                         ⬇ Download
                     </a>
@@ -612,6 +613,7 @@
             </div>
         </div>
     </section>
+
     <!-- ================= MODAL WITH SLIDER ================= -->
     <div class="modal" id="modal">
         <div class="modal-content">
@@ -645,67 +647,36 @@
     <script>
         const previewLength = 180; // characters to show in preview
 
-        // Define image sets for each guide
+        // Define image sets for each guide - UPDATED WITH CORRECT FILE PATHS
         const guideImages = {
             'add_drop_pre': {
-                title: 'Add / Drop Subjects Guide',
+                title: 'Check Subjects Schedule Guide',
                 images: [
-                    { src: 'subject_Check/1.jpg', caption: 'Steps 1: Login to CampusPortal -> Home -> Campus Plan Web Menu' },
-                    { src: 'subject_Check/2.jpg', caption: 'Step 2: Login using your student credentials ' },
-                    { src: 'subject_Check/4.jpg', caption: 'Step 3: Web Syllabus' },
-                    { src: 'subject_Check/5.jpg', caption: 'Step 4: Search Syllabus' },
-                    { src: 'subject_Check/3.jpg', caption: 'Select your Semester-> Select Day-> Search -> You will see all the subjects scheduled for that day' },
+                    { src: 'search_sub.png', caption: 'How to check Subjects schedule' }
                 ]
-            }, 'add_drop': {
+            },
+            'add_drop': {
                 title: 'Add / Drop Subjects Guide',
                 images: [
-                    { src: 'Addition_Withdraw/1.jpg', caption: 'Steps 1: Login to KingLMS -> Organisations -> KCGI Students Web' },
-                    { src: 'Addition_Withdraw/2.png', caption: 'Step 2: Scroll down to the Addition Withdraw -> Select the Manual And Read the Instructions ' },
-                    { src: 'Addition_Withdraw/4.jpg', caption: 'Step 3: Refer this Presentation file with all the steps to add or withdraw subjects' },
-                    { src: 'Addition_Withdraw/5.jpg', caption: 'Step 4: Proceed to add or withdraw subjects' },
-                    { src: 'Addition_Withdraw/3.jpg', caption: 'Disclaimer "Addition and Withdraw is only available from 5:00 AM to 17:00 PM' },
+                    { src: 'add_withdraw.png', caption: 'How to Addition and Withdraw subjects' }
                 ]
             },
             'assignments': {
                 title: 'Check Assignments Guide',
                 images: [
-                    {
-                        src: 'assignments_1.png',
-                        caption: 'Step 1: Go to the assignments section in your course management system.'
-                    },
-                    {
-                        src: 'assignments_2.png',
-                        caption: 'Step 2: Check all assignment deadlines and submission requirements.'
-                    },
-                    {
-                        src: 'assignments_3.png',
-                        caption: 'Step 3: Download all necessary assignment files and materials.'
-                    },
-                    {
-                        src: 'assignments_4.png',
-                        caption: 'Step 4: Submit completed work before the deadline and keep a backup.'
-                    }
+                    { src: 'ass_check.png', caption: 'How to check Assignments' }
                 ]
             },
-            'wifi': {
-                title: 'Use Campus Wi-Fi Guide',
+            'attendance': {
+                title: 'How to do Attendance Guide',
                 images: [
-                    {
-                        src: 'wifi_1.png',
-                        caption: 'Step 1: Connect to KCGI-WiFi network from your device settings.'
-                    },
-                    {
-                        src: 'wifi_2.png',
-                        caption: 'Step 2: Enter your student credentials when prompted.'
-                    },
-                    {
-                        src: 'wifi_3.png',
-                        caption: 'Step 3: Accept the security certificate if prompted by browser.'
-                    },
-                    {
-                        src: 'wifi_4.png',
-                        caption: 'Step 4: Test your connection by accessing the student portal.'
-                    }
+                    { src: 'attendance.png', caption: 'How to do Attendance' }
+                ]
+            },
+            'att_check': {
+                title: 'Check Attendance Guide',
+                images: [
+                    { src: 'att_check.png', caption: 'How to check your Attendance' }
                 ]
             }
         };
@@ -766,6 +737,11 @@
             const sliderNav = document.getElementById('sliderNav');
             const modalTitle = document.getElementById('modalTitle');
 
+            if (!guide) {
+                console.error(`Guide "${guideName}" not found`);
+                return;
+            }
+
             // Set modal title
             modalTitle.textContent = guide.title;
 
@@ -780,7 +756,7 @@
                 slide.className = 'slide';
                 slide.innerHTML = `
                     <div class="slide-content">
-                        <img src="${image.src}" alt="Step ${index + 1}" onerror="this.src='placeholder.png'">
+                        <img src="${image.src}" alt="Step ${index + 1}" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
                         <div class="slide-caption">${image.caption}</div>
                     </div>
                 `;
@@ -797,8 +773,6 @@
             updateSliderPosition();
             if (isAutoPlay) {
                 startAutoSlide();
-                autoSlideInterval = setInterval(nextSlide, 4000);
-
             }
             updateSlideCounter();
         }
@@ -902,6 +876,7 @@
         function closeModal() {
             document.getElementById("modal").style.display = "none";
             stopAutoSlide();
+            isAutoPlay = true; // Reset auto-play state for next time
         }
 
         // Dropdown toggle
@@ -922,29 +897,10 @@
             }
         });
 
-        // Pause auto-slide when modal is hovered
-        document.getElementById('modal').addEventListener('mouseenter', function () {
-            if (isAutoPlay) {
-                stopAutoSlide();
-            }
-        });
-
-        document.getElementById('modal').addEventListener('mouseleave', function () {
-            if (isAutoPlay) {
-                startAutoSlide();
-            }
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function (e) {
-            if (e.target === document.getElementById('modal')) {
-                closeModal();
-            }
-        });
-
         // Keyboard navigation
         document.addEventListener('keydown', function (e) {
-            if (document.getElementById('modal').style.display === 'flex') {
+            const modal = document.getElementById('modal');
+            if (modal.style.display === 'flex') {
                 if (e.key === 'ArrowLeft') {
                     prevSlide();
                 } else if (e.key === 'ArrowRight') {
@@ -957,21 +913,13 @@
                 }
             }
         });
-        // Download guide as PDF function
-        // Download guide as JPEG function
-        function downloadGuide(guideName) {
-            // Assuming you have JPEG files named like: add_drop_1.jpg, add_drop_2.jpg, etc.
-            // Download the first image of each guide
-            const jpgUrl = `main.png`;
-            const link = document.createElement('a');
-            link.href = jpgUrl;
-            link.download = `KCGI_${guideName.replace('_', ' ')}_Guide.jpg`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
 
-            alert(`Downloading ${guideName.replace('_', ' ')} Guide (first image)...`);
-        }
+        // Close modal when clicking outside
+        window.addEventListener('click', function (e) {
+            if (e.target === document.getElementById('modal')) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 
