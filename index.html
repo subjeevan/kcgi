@@ -259,6 +259,34 @@
             background: rgba(0, 0, 0, 0.7);
         }
 
+        /* ================= ARCHIVE SECTION ================= */
+        #archive {
+            background: white;
+            padding: 40px 20px;
+        }
+
+        .video-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .video-container h3 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .video-container video {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
         /* ================= SLIDER FIX ================= */
         .slider-container {
             position: relative;
@@ -612,6 +640,18 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ================= ARCHIVE SECTION ================= -->
+    <section id="archive">
+        <h2>Archive</h2>
+        <div class="video-container">
+            <h3>Student Discussion: Common Challenges & Solutions</h3>
+            <video controls>
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
     </section>
 
